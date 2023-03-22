@@ -1,0 +1,31 @@
+﻿<Window x:Class="KTMetoda.ParametriWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KTMetoda"
+        mc:Ignorable="d"
+        Title="ParametriWindow" Height="1080" Width="1024">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Row="0" Margin="10">
+            <Label Content="K-T Metoda" FontSize="45" HorizontalAlignment="Center"></Label>
+            <TextBlock Text="Nova parameter:" FontSize="25" HorizontalAlignment="Center" Margin="0 30 0 0"></TextBlock>
+            <TextBox x:Name="VnosParameter" FontSize="20" Width="250" Height="30" Margin="0 20 0 0" ></TextBox>
+            <Button x:Name="DodajParameter" Content="Dodaj" FontSize="20" Width="100" Height="30" Margin="400 -30 0 0" Click="DodajParameter_Click"></Button>
+            <TextBlock Text="Utež:" FontSize="25" HorizontalAlignment="Center" Margin="0 0 190 0" ></TextBlock>
+            <!--xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"-->
+            <!--<xctk:IntegerUpDown Name="myUpDownControl" />-->
+        </StackPanel>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="1" Margin="10">
+            <TextBlock Text="Vsi parametri:" FontSize="25" HorizontalAlignment="Center"></TextBlock>
+            <ListBox x:Name="AlternativaListBox" FontSize="25" ItemsSource="{Binding Alternative}" Margin="0 30 0 0"></ListBox>
+            <Button x:Name="IzbrisParameter" Content="Izbriši označeno" FontSize="20" Width="200" Height="30" Margin="0 30 0 0" Click="IzbrisParameter_Click"></Button>
+        </StackPanel>
+        <Button x:Name="NaprejOceno" Content="Naprej na oceno" FontSize="20" Width="200" Height="30" Margin="0 30 0 0" Grid.Row="2" Click="NaprejOceno_Click"></Button>
+    </Grid>
+</Window>
