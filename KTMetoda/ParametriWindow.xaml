@@ -18,12 +18,21 @@
             <TextBox x:Name="VnosParameter" FontSize="20" Width="250" Height="30" Margin="0 20 0 0" ></TextBox>
             <Button x:Name="DodajParameter" Content="Dodaj" FontSize="20" Width="100" Height="30" Margin="400 -30 0 0" Click="DodajParameter_Click"></Button>
             <TextBlock Text="Utež:" FontSize="25" HorizontalAlignment="Center" Margin="0 0 190 0" ></TextBlock>
+            <Label x:Name="Utez" FontSize="25" Width="50" Height="40" Margin="-70 -38 0 0" Content="{Binding ElementName=MySlider, Path=Value}"></Label>
+            <Slider x:Name="MySlider" Minimum="1" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True" Width="250" Height="30" Margin="250 -23 0 0"></Slider>
             <!--xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"-->
             <!--<xctk:IntegerUpDown Name="myUpDownControl" />-->
         </StackPanel>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="1" Margin="10">
             <TextBlock Text="Vsi parametri:" FontSize="25" HorizontalAlignment="Center"></TextBlock>
-            <ListBox x:Name="AlternativaListBox" FontSize="25" ItemsSource="{Binding Alternative}" Margin="0 30 0 0"></ListBox>
+            <ListBox x:Name="ParametriListBox" FontSize="25" ItemsSource="{Binding Parametri}" Margin="0 30 0 0">
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Key}" Margin="5"></TextBlock>
+                        <TextBlock Text="{Binding Value}" Margin="5"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox>
             <Button x:Name="IzbrisParameter" Content="Izbriši označeno" FontSize="20" Width="200" Height="30" Margin="0 30 0 0" Click="IzbrisParameter_Click"></Button>
         </StackPanel>
         <Button x:Name="NaprejOceno" Content="Naprej na oceno" FontSize="20" Width="200" Height="30" Margin="0 30 0 0" Grid.Row="2" Click="NaprejOceno_Click"></Button>

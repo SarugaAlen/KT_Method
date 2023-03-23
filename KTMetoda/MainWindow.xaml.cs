@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KTMetoda.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -35,6 +36,7 @@ namespace KTMetoda
         {
             string alternativa = VnosAlternative.Text;
             Alternative.Add(alternativa);
+            VnosAlternative.Text = "";
         }
 
         private void IzbrisiAlternativo_Click(object sender, RoutedEventArgs e)
@@ -51,7 +53,7 @@ namespace KTMetoda
                 {
                     Alternative.Remove(selectedAlternative);
                 }
-            }           
+            }
         }
         private void NaprejParametre_Click(object sender, RoutedEventArgs e)
         {
