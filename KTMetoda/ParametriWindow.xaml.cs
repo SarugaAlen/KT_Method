@@ -38,18 +38,37 @@ namespace KTMetoda
             Dictionary<string, int> parameter = new Dictionary<string, int>();
             parameter.Add(VnosParameter.Text, Convert.ToInt32(Utez.Content));
             Parametri.Add(parameter);
+            MySlider.Value = 1;
             VnosParameter.Text = "";
-            Utez.Content = "";
         }
 
         private void IzbrisParameter_Click(object sender, RoutedEventArgs e)
         {
-
+            var selectedParameter = ParametriListBox.SelectedItem;
+            if (ParametriListBox.Items.Count == 0)
+            {
+                MessageBox.Show("Napak: Seznam  je prazen!", "Napaka", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else
+            {
+                if (selectedParameter != null)
+                {
+                    Parametri.Remove((Dictionary<string, int>)selectedParameter);
+                }
+            }
         }
 
         private void NaprejOceno_Click(object sender, RoutedEventArgs e)
         {
-
+            if (Parametri.Count == 0)
+            {
+                MessageBox.Show("Napaka: Seznam Parametrov je prazen!", "Napaka", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            //ParametriWindow parametriWindow = new ParametriWindow(Alternative);
+            //parametriWindow.Show();
+            this.Close();
         }
     }
 }

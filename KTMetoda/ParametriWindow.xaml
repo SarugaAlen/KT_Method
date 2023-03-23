@@ -26,12 +26,14 @@
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="1" Margin="10">
             <TextBlock Text="Vsi parametri:" FontSize="25" HorizontalAlignment="Center"></TextBlock>
             <ListBox x:Name="ParametriListBox" FontSize="25" ItemsSource="{Binding Parametri}" Margin="0 30 0 0">
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Key}" Margin="5"></TextBlock>
-                        <TextBlock Text="{Binding Value}" Margin="5"></TextBlock>
-                    </StackPanel>
-                </DataTemplate>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Key}" Margin="5"></TextBlock>
+                            <TextBlock Text="{Binding Value}" Margin="5"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
             <Button x:Name="IzbrisParameter" Content="Izbriši označeno" FontSize="20" Width="200" Height="30" Margin="0 30 0 0" Click="IzbrisParameter_Click"></Button>
         </StackPanel>
