@@ -66,8 +66,8 @@ namespace KTMetoda
                 MessageBox.Show("Napaka: Seznam Parametrov je prazen!", "Napaka", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            //ParametriWindow parametriWindow = new ParametriWindow(Alternative);
-            //parametriWindow.Show();
+            IzracunWindow izracunWindow = new IzracunWindow(Alternative, Parametri);
+            izracunWindow.Show();
             this.Close();
         }
     }
