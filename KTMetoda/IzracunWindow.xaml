@@ -6,41 +6,35 @@
         xmlns:local="clr-namespace:KTMetoda"
         mc:Ignorable="d"
         Title="IzracunWindow" Height="1080" Width="1024">
-    <Grid>
-        <!--<Grid.RowDefinitions>
+    <Grid Margin="50">
+        <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-        </Grid.RowDefinitions>-->
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="prvi"></TextBox>
-        <TextBox x:Name="drugi"></TextBox>
-        <!--<ListBox x:Name="myListBox" Grid.IsSharedSizeScope="True" Width="900">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="Column1"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Property1}" Grid.Column="0" Margin="5"/>
-                        <TextBlock Text="{Binding Property2}" Grid.Column="1" Margin="5"/>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>-->
-        
-        
-        <!--<DataGrid x:Name="DataGridUtezi" AutoGenerateColumns="False" HeadersVisibility="All" FontSize="30" HorizontalAlignment="Left" Grid.Row="0">
+        <DataGrid x:Name="GridUtezi" ItemsSource="{Binding Parametri}" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="0" FontSize="40">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="Parameter" Binding="{Binding Ime}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Utez" Binding="{Binding Utez}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
-        </DataGrid>-->
-
-        <DataGrid x:Name="myDataGrid" HeadersVisibility="All" FontSize="30" HorizontalAlignment="Center" Grid.Row="0">
-            <!--<DataGrid.Columns>
-                <DataGridTextColumn Header="Parametri" Binding="{Binding Path=Key}"/>
-            </DataGrid.Columns>-->
-            
-            vse naredi z listvievom pa naredi gridl colum za seperator
+        </DataGrid>
+        <DataGrid x:Name="GridAlternative" ItemsSource="{Binding Alternative}"  Grid.Column="1" Grid.Row="0" FontSize="40">
         </DataGrid>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KTMetoda.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -21,21 +22,20 @@ namespace KTMetoda
     public partial class ParametriWindow : Window
     {
         public ObservableCollection<string> Alternative;
-        public ObservableCollection<Dictionary<string, int>> Parametri { get; set; }
+        public ObservableCollection<Parameter> Parametri;
 
         public ParametriWindow(ObservableCollection<string> Alternative)
         {
             InitializeComponent();
             this.Alternative = Alternative;
-            Parametri = new ObservableCollection<Dictionary<string, int>>();
+            Parametri = new ObservableCollection<Parameter>();
             DataContext = this;
         }
 
         private void DodajParameter_Click(object sender, RoutedEventArgs e)
         {
-            //ParametriListBox.ItemsSource = Parametri;
-            Dictionary<string, int> parameter = new Dictionary<string, int>();
-            parameter.Add(VnosParameter.Text, Convert.ToInt32(Utez.Content));
+            ParametriListBox.ItemsSource = Parametri;
+            Parameter parameter = new Parameter(VnosParameter.Text, Convert.ToInt32(Utez.Content));
             Parametri.Add(parameter);
             MySlider.Value = 1;
             VnosParameter.Text = "";
@@ -53,7 +53,7 @@ namespace KTMetoda
             {
                 if (selectedParameter != null)
                 {
-                    Parametri.Remove((Dictionary<string, int>)selectedParameter);
+                    Parametri.Remove((Parameter)selectedParameter);
                 }
             }
         }

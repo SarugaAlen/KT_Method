@@ -11,9 +11,11 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace KTMetoda
 {
@@ -23,62 +25,45 @@ namespace KTMetoda
     /// 
     public partial class IzracunWindow : Window
     {
-        public ObservableCollection<string> Alternative;
-        public ObservableCollection<Dictionary<string, int>> Parametri;
+        public ObservableCollection<string> Alternative { get; set; }
+        public ObservableCollection<Parameter> Parametri { get; set; }
+        public DataTable Data { get; set; }
 
-        
 
-        public IzracunWindow(ObservableCollection<string> Alternative, ObservableCollection<Dictionary<string, int>> Parametri)
+        public IzracunWindow(ObservableCollection<string> Alternative, ObservableCollection<Parameter> Parametri)
         {
             InitializeComponent();
             this.Alternative = Alternative;
             this.Parametri = Parametri;
+            DataContext = this;
 
-            Dictionary<string, int> test = Parametri[0];
-            //ObservableCollection<Izracun> Izracuni;
-            prvi.Text = test.Keys.First().ToString();
-            drugi.Text = test.Values.First().ToString();
+            int steviloVrst = Parametri.Count;
+            int steviloStolpcev = Alternative.Count;
+
+            //List<int> data = new List<int>();
+            List<int> data = new List<int>();
+            ////// initialize the data source with the desired number of objects
+            //for (int i = 0; i < steviloVrst; i++)
+            //{
+            //    data.Add(0);
+            //}
+
+            //// set the data source for the DataGrid
+            //GridAlternative.ItemsSource = data;
 
             foreach (string alternativa in Alternative)
             {
-                
+                int item = 0;
+                data.Add(item);
+
+                DataGridTextColumn column = new DataGridTextColumn();
+                column.Header = alternativa;
+                column.Binding = new Binding(alternativa);
+                column.Width = 200;
+                column.IsReadOnly = false;
+                GridAlternative.Columns.Add(column);
             }
+            GridAlternative.ItemsSource = data;
         }
     }
 }
-//var itemTemplate = new DataTemplate();
-
-//var stackPanelFactory = new FrameworkElementFactory(typeof(StackPanel));
-//stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
-
-//var keyTextBlockFactory = new FrameworkElementFactory(typeof(TextBlock));
-//keyTextBlockFactory.SetBinding(TextBlock.TextProperty, new Binding("Key"));
-//stackPanelFactory.AppendChild(keyTextBlockFactory);
-
-//var valueTextBlockFactory = new FrameworkElementFactory(typeof(TextBlock));
-//valueTextBlockFactory.SetBinding(TextBlock.TextProperty, new Binding("Value"));
-//stackPanelFactory.AppendChild(valueTextBlockFactory);
-
-//itemTemplate.VisualTree = stackPanelFactory;
-
-//var listBoxFactory = new FrameworkElementFactory(typeof(ListBox));
-//listBoxFactory.SetValue(ListBox.ItemTemplateProperty, itemTemplate);
-//listBoxFactory.SetBinding(ListBox.ItemsSourceProperty, new Binding());
-
-//parametriColumn.CellTemplate = new DataTemplate();
-//parametriColumn.CellTemplate.VisualTree = listBoxFactory;
-
-//parametriColumn.SetValue(DataGrid.ItemsSourceProperty, Parametri);
-
-//myDataGrid.Columns.Insert(0, parametriColumn);
-
-
-//foreach (string alternative in Alternative)
-//{
-//    var column = new DataGridTextColumn
-//    {
-//        Header = alternative,
-//        Binding = new Binding(string.Format("[{0}]", alternative))
-//    };
-//    myDataGrid.Columns.Add(column);
-//}
