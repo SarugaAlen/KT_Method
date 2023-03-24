@@ -7,16 +7,34 @@
         mc:Ignorable="d"
         Title="IzracunWindow" Height="1080" Width="1024">
     <Grid>
-        <Grid.RowDefinitions>
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
-        </Grid.RowDefinitions>
-        <DataGrid x:Name="DataGridUtezi" AutoGenerateColumns="False" HeadersVisibility="All" FontSize="30" HorizontalAlignment="Left" Grid.Row="0">
+        </Grid.RowDefinitions>-->
+
+        <TextBox x:Name="prvi"></TextBox>
+        <TextBox x:Name="drugi"></TextBox>
+        <!--<ListBox x:Name="myListBox" Grid.IsSharedSizeScope="True" Width="900">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Column1"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Property1}" Grid.Column="0" Margin="5"/>
+                        <TextBlock Text="{Binding Property2}" Grid.Column="1" Margin="5"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>-->
+        
+        
+        <!--<DataGrid x:Name="DataGridUtezi" AutoGenerateColumns="False" HeadersVisibility="All" FontSize="30" HorizontalAlignment="Left" Grid.Row="0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Parameter" Binding="{Binding Key}" />
-                <DataGridTextColumn Header="Vrednost" Binding="{Binding Value}" />
             </DataGrid.Columns>
-        </DataGrid>
+        </DataGrid>-->
+
         <DataGrid x:Name="myDataGrid" HeadersVisibility="All" FontSize="30" HorizontalAlignment="Center" Grid.Row="0">
             <!--<DataGrid.Columns>
                 <DataGridTextColumn Header="Parametri" Binding="{Binding Path=Key}"/>

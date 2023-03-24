@@ -1,6 +1,8 @@
-﻿using System;
+﻿using KTMetoda.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,54 +26,59 @@ namespace KTMetoda
         public ObservableCollection<string> Alternative;
         public ObservableCollection<Dictionary<string, int>> Parametri;
 
+        
+
         public IzracunWindow(ObservableCollection<string> Alternative, ObservableCollection<Dictionary<string, int>> Parametri)
         {
             InitializeComponent();
             this.Alternative = Alternative;
             this.Parametri = Parametri;
 
-            //DataGridUtezi.ItemsSource = Parametri;
-            var parametriColumn = new DataGridTemplateColumn
+            Dictionary<string, int> test = Parametri[0];
+            //ObservableCollection<Izracun> Izracuni;
+            prvi.Text = test.Keys.First().ToString();
+            drugi.Text = test.Values.First().ToString();
+
+            foreach (string alternativa in Alternative)
             {
-                Header = "Parametri",
-                CellTemplate = new DataTemplate(typeof(ListBox))
-            };
-
-            //var itemTemplate = new DataTemplate();
-
-            //var stackPanelFactory = new FrameworkElementFactory(typeof(StackPanel));
-            //stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
-
-            //var keyTextBlockFactory = new FrameworkElementFactory(typeof(TextBlock));
-            //keyTextBlockFactory.SetBinding(TextBlock.TextProperty, new Binding("Key"));
-            //stackPanelFactory.AppendChild(keyTextBlockFactory);
-
-            //var valueTextBlockFactory = new FrameworkElementFactory(typeof(TextBlock));
-            //valueTextBlockFactory.SetBinding(TextBlock.TextProperty, new Binding("Value"));
-            //stackPanelFactory.AppendChild(valueTextBlockFactory);
-
-            //itemTemplate.VisualTree = stackPanelFactory;
-
-            //var listBoxFactory = new FrameworkElementFactory(typeof(ListBox));
-            //listBoxFactory.SetValue(ListBox.ItemTemplateProperty, itemTemplate);
-            //listBoxFactory.SetBinding(ListBox.ItemsSourceProperty, new Binding());
-
-            //parametriColumn.CellTemplate = new DataTemplate();
-            //parametriColumn.CellTemplate.VisualTree = listBoxFactory;
-
-            //parametriColumn.SetValue(DataGrid.ItemsSourceProperty, Parametri);
-
-            //myDataGrid.Columns.Insert(0, parametriColumn);
-
-            foreach (string alternative in Alternative)
-            {
-                var column = new DataGridTextColumn
-                {
-                    Header = alternative,
-                    Binding = new Binding(string.Format("[{0}]", alternative))
-                };
-                myDataGrid.Columns.Add(column);
+                
             }
         }
     }
 }
+//var itemTemplate = new DataTemplate();
+
+//var stackPanelFactory = new FrameworkElementFactory(typeof(StackPanel));
+//stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
+
+//var keyTextBlockFactory = new FrameworkElementFactory(typeof(TextBlock));
+//keyTextBlockFactory.SetBinding(TextBlock.TextProperty, new Binding("Key"));
+//stackPanelFactory.AppendChild(keyTextBlockFactory);
+
+//var valueTextBlockFactory = new FrameworkElementFactory(typeof(TextBlock));
+//valueTextBlockFactory.SetBinding(TextBlock.TextProperty, new Binding("Value"));
+//stackPanelFactory.AppendChild(valueTextBlockFactory);
+
+//itemTemplate.VisualTree = stackPanelFactory;
+
+//var listBoxFactory = new FrameworkElementFactory(typeof(ListBox));
+//listBoxFactory.SetValue(ListBox.ItemTemplateProperty, itemTemplate);
+//listBoxFactory.SetBinding(ListBox.ItemsSourceProperty, new Binding());
+
+//parametriColumn.CellTemplate = new DataTemplate();
+//parametriColumn.CellTemplate.VisualTree = listBoxFactory;
+
+//parametriColumn.SetValue(DataGrid.ItemsSourceProperty, Parametri);
+
+//myDataGrid.Columns.Insert(0, parametriColumn);
+
+
+//foreach (string alternative in Alternative)
+//{
+//    var column = new DataGridTextColumn
+//    {
+//        Header = alternative,
+//        Binding = new Binding(string.Format("[{0}]", alternative))
+//    };
+//    myDataGrid.Columns.Add(column);
+//}
