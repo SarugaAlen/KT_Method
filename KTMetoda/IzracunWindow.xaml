@@ -41,12 +41,11 @@
         </DataGrid>
         <TextBox Grid.Row="1" Text="Skupaj" BorderThickness="0" FontSize="40" FontWeight="Bold" Margin="10" Width="300" Height="60" VerticalAlignment="Top"></TextBox>
         <StackPanel x:Name="Rezultati" Grid.Row="1" Grid.Column="1" Orientation="Horizontal"></StackPanel>
-        <TextBlock x:Name="Najboljsa" Text="test" TextWrapping="Wrap" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" FontSize="40" FontWeight="Bold" Margin="40 0 00 0"  Height="60" VerticalAlignment="Top" HorizontalAlignment="Center"></TextBlock>
-        <Button x:Name="Izracunaj" Content="Izračunaj" Width="200" Height="60" FontSize="40" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Izracunaj_Click" Margin="20"></Button>
+        <TextBlock x:Name="Najboljsa" TextWrapping="Wrap" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" FontSize="40" FontWeight="Bold" Margin="60 0 00 0"  Height="60" VerticalAlignment="Top" HorizontalAlignment="Center"></TextBlock>
+        <Button x:Name="Izracunaj" Content="Izračunaj" Width="200" Height="60" FontSize="30" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Izracunaj_Click" Margin="20"></Button>
         <StackPanel Orientation="Vertical" Grid.Row="3" >
-            <Button x:Name="AlternativeChart" Content="Graf alternativ"  FontSize="35" Width="300" Height="60" Margin="20" Click="AlternativeChart_Click"></Button>
-            <Button x:Name="ParametriChart" Content="Graf parametrov" FontSize="35" Width="300" Height="60" Margin="20" Click="ParametriChart_Click"></Button>
-
+            <Button x:Name="AlternativeChart" Content="Graf alternativ"  FontSize="35" Width="270" Height="60" Margin="20" Click="AlternativeChart_Click"></Button>
+            <Button x:Name="ParametriChart" Content="Graf parametrov" FontSize="35" Width="270" Height="60" Margin="20" Click="ParametriChart_Click"></Button>
         </StackPanel>
         <!--<Frame x:Name="AlternativeChart" Grid.Row="0" Grid.Column="2" Width="500" Height="500" Margin="0 80 400 0"></Frame>
         <Frame x:Name="ParametriChart" Grid.Row="0" Grid.Column="2" Width="500" Height="500" Margin="700 80 0 0"></Frame>-->

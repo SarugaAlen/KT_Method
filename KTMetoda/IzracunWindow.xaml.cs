@@ -23,6 +23,7 @@ using LiveCharts.Wpf.Charts.Base;
 using LiveCharts.Defaults;
 using LiveCharts.Definitions.Charts;
 
+
 namespace KTMetoda
 {
     /// <summary>
@@ -180,26 +181,50 @@ namespace KTMetoda
 
         private void ParametriChart_Click(object sender, RoutedEventArgs e)
         {
-            ChartValues<ObservableValue> chartValues = new ChartValues<ObservableValue>();
+            //ChartValues<ObservableValue> chartValues = new ChartValues<ObservableValue>();
+            //foreach (Parameter parameter in Parametri)
+            //{
+            //    chartValues.Add(new ObservableValue(parameter.Utez));
+            //}
+
+            //var piechart = new LiveCharts.Wpf.PieChart();
+            //PieSeries pieSeries = new PieSeries
+            //{
+            //    Title = "Parameters",
+            //    Values = chartValues,
+            //    DataLabels = true,
+            //    LabelPoint = chartPoint => string.Format("{0} ({1:P})", chartPoint.SeriesView.Title, chartPoint.Participation)
+            //};
+
+            //piechart.Series.Add(pieSeries);
+
+            //var window = new Window
+            //{
+            //    Content = piechart,
+            //    Width = 800,
+            //    Height = 600
+            //};
+            //window.ShowDialog();
+            PieChart pieChart = new PieChart
+            {
+                LegendLocation = LegendLocation.Bottom
+            };
+            
             foreach (Parameter parameter in Parametri)
             {
-                chartValues.Add(new ObservableValue(parameter.Utez));
+                PieSeries pieSeries = new PieSeries
+                {
+                    Title = parameter.Ime,
+                    Values = new ChartValues<int> { parameter.Utez },
+                    DataLabels = true,
+                    LabelPoint = chartPoint => $"{chartPoint.SeriesView.Title} ({chartPoint.Participation:P})"
+                };
+                pieChart.Series.Add(pieSeries);
             }
-
-            var piechart = new LiveCharts.Wpf.PieChart();
-            PieSeries pieSeries = new PieSeries
-            {
-                Title = "Parameters",
-                Values = chartValues,
-                DataLabels = true,
-                LabelPoint = chartPoint => string.Format("{0} ({1:P})", chartPoint.SeriesView.Title, chartPoint.Participation)
-            };
-
-            piechart.Series.Add(pieSeries);
 
             var window = new Window
             {
-                Content = piechart,
+                Content = pieChart,
                 Width = 800,
                 Height = 600
             };
