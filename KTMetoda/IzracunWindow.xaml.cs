@@ -181,30 +181,6 @@ namespace KTMetoda
 
         private void ParametriChart_Click(object sender, RoutedEventArgs e)
         {
-            //ChartValues<ObservableValue> chartValues = new ChartValues<ObservableValue>();
-            //foreach (Parameter parameter in Parametri)
-            //{
-            //    chartValues.Add(new ObservableValue(parameter.Utez));
-            //}
-
-            //var piechart = new LiveCharts.Wpf.PieChart();
-            //PieSeries pieSeries = new PieSeries
-            //{
-            //    Title = "Parameters",
-            //    Values = chartValues,
-            //    DataLabels = true,
-            //    LabelPoint = chartPoint => string.Format("{0} ({1:P})", chartPoint.SeriesView.Title, chartPoint.Participation)
-            //};
-
-            //piechart.Series.Add(pieSeries);
-
-            //var window = new Window
-            //{
-            //    Content = piechart,
-            //    Width = 800,
-            //    Height = 600
-            //};
-            //window.ShowDialog();
             PieChart pieChart = new PieChart
             {
                 LegendLocation = LegendLocation.Bottom
@@ -230,5 +206,17 @@ namespace KTMetoda
             };
             window.ShowDialog();
         }
+
+        private void AnalizaObcutljivosti_Click(object sender, RoutedEventArgs e)
+        {
+            // torej potem mores naredit da uporabnik izbere za kateri parameter hoce spreminjat vrednost od 1 do 10
+            // in potem se moras enkrat izracunat vse vrednosti v tabeli in vskako shrani (pomoje najboljse da v nek list in potem naredis iz tega graf) 
+            //torej vsaka alternativa dobi svoj list ko bo mel not vse izracune ko se utez spremeni od 1 do 10
+            Parameter izbran = ComboBoxParametrov.SelectedItem as Parameter;
+            MessageBox.Show(izbran.Ime);
+
+        }
+
+
     }
 }

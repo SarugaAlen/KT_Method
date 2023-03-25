@@ -49,5 +49,17 @@
         </StackPanel>
         <!--<Frame x:Name="AlternativeChart" Grid.Row="0" Grid.Column="2" Width="500" Height="500" Margin="0 80 400 0"></Frame>
         <Frame x:Name="ParametriChart" Grid.Row="0" Grid.Column="2" Width="500" Height="500" Margin="700 80 0 0"></Frame>-->
+        <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Center">
+            <TextBlock  Text="Izbira parametra za analizo občutljivosti:" FontSize="30" Margin="20"></TextBlock>
+            <ComboBox x:Name="ComboBoxParametrov" ItemsSource="{Binding Parametri}" Width="400" Height="50" Margin="40">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Ime}" FontSize="25" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button x:Name="AnalizaObcutljivosti" Content="Analiza občutljivosti" FontSize="30" Height="50" Width="400" Click="AnalizaObcutljivosti_Click" ></Button>
+        </StackPanel>
+        
     </Grid>
 </Window>
