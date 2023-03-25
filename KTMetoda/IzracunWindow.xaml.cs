@@ -125,7 +125,7 @@ namespace KTMetoda
         private void Izracunaj_Click(object sender, RoutedEventArgs e)
         {
             int najvecjaVsota = int.MinValue;
-            int najvecjiStolpecIndex = -1;            
+            int najvecjiStolpecIndex = -1;
 
             for (int i = 0; i < Rezultati.Children.Count; i++)
             {
@@ -149,7 +149,7 @@ namespace KTMetoda
                 }
             }
             Najboljsa.Text = "Najboljša alternativa je " + Alternative[najvecjiStolpecIndex] + " z " + najvecjaVsota + " točkami";
-            MessageBox.Show("Najboljša alternativa je " + Alternative[najvecjiStolpecIndex] + " z " + najvecjaVsota + " točkami");
+            //MessageBox.Show("Najboljša alternativa je " + Alternative[najvecjiStolpecIndex] + " z " + najvecjaVsota + " točkami");
         }
 
         private void AlternativeChart_Click(object sender, RoutedEventArgs e)
@@ -185,7 +185,7 @@ namespace KTMetoda
             {
                 LegendLocation = LegendLocation.Bottom
             };
-            
+
             foreach (Parameter parameter in Parametri)
             {
                 PieSeries pieSeries = new PieSeries
@@ -212,9 +212,53 @@ namespace KTMetoda
             // torej potem mores naredit da uporabnik izbere za kateri parameter hoce spreminjat vrednost od 1 do 10
             // in potem se moras enkrat izracunat vse vrednosti v tabeli in vskako shrani (pomoje najboljse da v nek list in potem naredis iz tega graf) 
             //torej vsaka alternativa dobi svoj list ko bo mel not vse izracune ko se utez spremeni od 1 do 10
+            List<Sestevek> sestevki = new List<Sestevek>();
             Parameter izbran = ComboBoxParametrov.SelectedItem as Parameter;
-            MessageBox.Show(izbran.Ime);
+            int[] utezi = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            foreach (int utez in utezi)
+            {
+                izbran.Utez = utez;
+                Izracunaj_Click(sender, e);
+                int index = 0;
+                foreach (TextBlock textBlock in Rezultati.Children)
+                {
+                    sestevki.Add(new Sestevek(Alternative[index], int.Parse(textBlock.Text)));
+                    index++;
+                }              
+            }
 
+            MessageBox.Show(sestevki.First().ToString());
+
+            //MessageBox.Show(izbran.Ime);
+
+            //for (int i = 0; i < 11; i++)
+            //{
+            //    Sestevek sestevek = new Sestevek();
+            //    for (int j = 0; j < Alternative.Count; j++)
+            //    {
+            //        List<int> column = Data[j];
+
+            //        int index = 0;
+            //        izbran.Utez = i;
+            //        foreach (Parameter parameter in Parametri)
+            //        {
+            //            column[index] *= parameter.Utez;
+            //            index++;
+            //        }
+            //        int sum = column.Sum();
+            //        string alternativa = Alternative[j];
+            //        sestevek.Ime = alternativa;
+            //        sestevek.Vrednost = sum;
+
+            //    }
+            //    sestevki.Add(sestevek);
+            //}
+            //Izracunaj_Click(sender, e);
+            //List<int> vsote = new List<int>();
+            //foreach (int vsota in this.vsote)
+            //{
+            //    vsote.Add(vsota);
+            //}
         }
 
 
