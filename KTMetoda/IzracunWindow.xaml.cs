@@ -35,6 +35,8 @@ namespace KTMetoda
         public ObservableCollection<Parameter> Parametri { get; set; }
         public List<List<int>> Data { get; set; } = new List<List<int>>();
 
+        List<int> vsote = new List<int>();
+
 
         public IzracunWindow(ObservableCollection<string> Alternative, ObservableCollection<Parameter> Parametri)
         {
@@ -45,6 +47,7 @@ namespace KTMetoda
 
             int steviloVrst = Parametri.Count;
             int steviloStolpcev = Alternative.Count;
+
 
             for (int i = 0; i < steviloVrst; i++)
             {
@@ -121,8 +124,7 @@ namespace KTMetoda
         private void Izracunaj_Click(object sender, RoutedEventArgs e)
         {
             int najvecjaVsota = int.MinValue;
-            int najvecjiStolpecIndex = -1;
-            List<int> vsote = new List<int>();
+            int najvecjiStolpecIndex = -1;            
 
             for (int i = 0; i < Rezultati.Children.Count; i++)
             {
@@ -146,7 +148,11 @@ namespace KTMetoda
                 }
             }
             Najboljsa.Text = "Najboljša alternativa je " + Alternative[najvecjiStolpecIndex] + " z " + najvecjaVsota + " točkami";
+            MessageBox.Show("Najboljša alternativa je " + Alternative[najvecjiStolpecIndex] + " z " + najvecjaVsota + " točkami");
+        }
 
+        private void AlternativeChart_Click(object sender, RoutedEventArgs e)
+        {
             var chart = new LiveCharts.Wpf.CartesianChart();
             var series = new LiveCharts.Wpf.ColumnSeries
             {
@@ -163,22 +169,17 @@ namespace KTMetoda
                 FontSize = 16
             });
 
-            AlternativeChart.Content = chart;
+            var window = new Window
+            {
+                Content = chart,
+                Width = 800,
+                Height = 600
+            };
+            window.ShowDialog();
+        }
 
-            //ChartValues<ObservableValue> chartValues = new ChartValues<ObservableValue>();
-            //foreach (Parameter parameter in Parametri)
-            //{
-            //    chartValues.Add(new ObservableValue(parameter.Utez));
-            //}
-            //PieSeries pieSeries = new PieSeries
-            //{
-            //    Title = "Parameters",
-            //    Values = chartValues,
-            //    DataLabels = true,
-            //    LabelPoint = chartPoint => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation)
-            //};
-            //ParametriChart.Content = pieSeries;
-
+        private void ParametriChart_Click(object sender, RoutedEventArgs e)
+        {
             ChartValues<ObservableValue> chartValues = new ChartValues<ObservableValue>();
             foreach (Parameter parameter in Parametri)
             {
@@ -186,7 +187,6 @@ namespace KTMetoda
             }
 
             var piechart = new LiveCharts.Wpf.PieChart();
-            // Create a PieSeries object and set its properties
             PieSeries pieSeries = new PieSeries
             {
                 Title = "Parameters",
@@ -195,66 +195,15 @@ namespace KTMetoda
                 LabelPoint = chartPoint => string.Format("{0} ({1:P})", chartPoint.SeriesView.Title, chartPoint.Participation)
             };
 
-            // Add the series to the chart control
             piechart.Series.Add(pieSeries);
-            ParametriChart.Content = piechart;
 
-            //chart.Series.Add(series);
-            //var window = new Window
-            //{
-            //    Content = chart,
-            //    Width = 800,
-            //    Height = 600
-            //};
-            //window.ShowDialog();
-
-            //var chart = new LiveCharts.Wpf.CartesianChart();
-
-            //var series = new LiveCharts.Wpf.ColumnSeries
-            //{
-            //    Title = "Alternative",
-            //    DataLabels = true,
-            //    LabelPoint = point => $"{point.Y}"
-            //};
-
-            //foreach (var point in dataPoints)
-            //{
-            //    series.Values.Add(point);
-            //}
-
-            //chart.Series.Add(series);
-            //var window = new Window
-            //{
-            //    Content = chart,
-            //    Width = 800,
-            //    Height = 600
-            //};
-            //window.ShowDialog();
-
-
-            //var series = new LiveCharts.Wpf.ColumnSeries
-            //{
-            //    Title = "Alternative",
-            //    Values = new LiveCharts.ChartValues<int>(dataPoints.Values),
-            //    DataLabels = true,
-            //    LabelPoint = point => $"{point.Y}"
-            //};
-
-            //chart.AxisX.Add(new LiveCharts.Wpf.Axis
-            //{
-            //    Title = "Črke",
-            //    Labels = frekvenca.Keys.Select(c => c.ToString()).ToList()
-            //});
-
-            //chart.Series.Add(series);
-
-            //var window = new Window
-            //{
-            //    Content = chart,
-            //    Width = 800,
-            //    Height = 600
-            //};
-            //window.ShowDialog();
+            var window = new Window
+            {
+                Content = piechart,
+                Width = 800,
+                Height = 600
+            };
+            window.ShowDialog();
         }
     }
 }
