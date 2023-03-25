@@ -16,7 +16,7 @@
             <ColumnDefinition Width="Auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="GridUtezi" ItemsSource="{Binding Parametri}" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="0" FontSize="40" CanUserAddRows="false">
+        <DataGrid x:Name="GridUtezi" ItemsSource="{Binding Parametri}" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="0" FontSize="40" CanUserAddRows="false" FontWeight="Bold">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Parameter" Binding="{Binding Ime}" Width="200">
                     <DataGridTextColumn.CellStyle>
@@ -34,7 +34,11 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="GridAlternative" Grid.Column="1" Grid.Row="0" FontSize="40">
+        <DataGrid x:Name="GridAlternative" Grid.Column="1" Grid.Row="0" FontSize="40" FontWeight="Bold">
         </DataGrid>
+        <TextBox Grid.Row="1" Text="Skupaj" FontSize="40" FontWeight="Bold"></TextBox>
+        <StackPanel x:Name="Rezultati" Grid.Row="1" Grid.Column="1" Orientation="Horizontal"></StackPanel>
+        <Button x:Name="Izracunaj" Content="Izračunaj" Width="200" Height="60" FontSize="40" Grid.Row="1" Click="Izracunaj_Click"></Button>
+        <TextBlock x:Name="TEST"></TextBlock>
     </Grid>
 </Window>

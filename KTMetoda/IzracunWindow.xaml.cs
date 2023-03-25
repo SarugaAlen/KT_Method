@@ -1,5 +1,6 @@
 ﻿using KTMetoda.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -40,7 +41,7 @@ namespace KTMetoda
             int steviloVrst = Parametri.Count;
             int steviloStolpcev = Alternative.Count;
 
-            for (int i = 0; i < steviloStolpcev; i++)
+            for (int i = 0; i < steviloVrst; i++)
             {
                 Data.Add(new List<int>());
             }
@@ -54,7 +55,7 @@ namespace KTMetoda
                 column.Binding = new Binding($"Data[{i}]"); // Bind to the entire list for the corresponding row index
                 GridAlternative.Columns.Add(column);
             }
-
+            AddTextBlocks(steviloStolpcev);
             GridAlternative.ItemsSource = Data;
             GridAlternative.AutoGenerateColumns = false;
             GridAlternative.CanUserAddRows = false;
@@ -63,40 +64,70 @@ namespace KTMetoda
         }
         private void GridAlternative_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            string newValue = ((TextBox)e.EditingElement).Text;
+            // Get the edited cell
+            var cell = e.EditingElement as TextBox;
+
+            // If the cell is null or empty, return
+            if (cell == null || string.IsNullOrWhiteSpace(cell.Text))
+            {
+                return;
+            }
 
             // Get the row and column of the edited cell
             int rowIndex = e.Row.GetIndex();
             int columnIndex = e.Column.DisplayIndex;
 
             // Convert the new value to an integer
-            int intValue;
-            if (int.TryParse(newValue, out intValue))
-            {
-                // If the list for this column doesn't have enough items (rows), add them
-                while (Data[columnIndex].Count <= rowIndex)
-                {
-                    Data[columnIndex].Add(0);
-                }
-
-                // Update the corresponding item in the Data list with the new value
-                Data[columnIndex][rowIndex] = intValue;
-
-                // Cancel the edit so that the new value is not discarded
-                e.Cancel = true;
-
-                // Update the cell's value to the new value
-                var cell = e.Column.GetCellContent(e.Row);
-                if (cell != null)
-                {
-                    ((TextBox)cell).Text = newValue;
-                }
-            }
-            else
+            if (!int.TryParse(cell.Text, out int newValue) || newValue < 1 || newValue > 10)
             {
                 // If the user entered an invalid value, display a message and reset the cell's value
-                MessageBox.Show("Invalid input. Please enter an integer value.");
-                ((TextBox)e.EditingElement).Text = Data[columnIndex][rowIndex].ToString();
+                MessageBox.Show("Napačen vnos! Vnesite število med 1 in 10");
+                return;
+            }
+
+            // If the list for this column doesn't have enough items (rows), add them
+            while (Data[columnIndex].Count <= rowIndex)
+            {
+                Data[columnIndex].Add(0);
+            }
+
+            // Update the corresponding item in the Data list with the new value
+            Data[columnIndex][rowIndex] = newValue;
+
+            // Cancel the edit so that the new value is not discarded
+            e.Cancel = true;
+
+            // Update the cell's value to the new value
+            cell.Text = newValue.ToString();
+        }
+
+        private void AddTextBlocks(int alternative)
+        {
+            Rezultati.Children.Clear(); 
+            for (int i = 0; i < alternative; i++)
+            {
+                TextBlock textBlock = new TextBlock();
+                textBlock.Width = 200;
+                textBlock.FontSize = 40;
+                Rezultati.Children.Add(textBlock);
+            }
+        }
+
+        private void Izracunaj_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < Rezultati.Children.Count; i++)
+            {
+                List<int> column = Data[i];
+                
+                int index = 0;
+                
+                foreach (Parameter parameter in Parametri)
+                {
+                    column[index] *= parameter.Utez;
+                    index++;
+                }
+                int sum = column.Sum();
+                Rezultati.Children[i].SetValue(TextBlock.TextProperty, sum.ToString());
             }
         }
     }
