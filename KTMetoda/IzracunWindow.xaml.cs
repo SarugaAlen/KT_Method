@@ -85,40 +85,29 @@ namespace KTMetoda
         }
         private void GridAlternative_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            // Get the edited cell
             var cell = e.EditingElement as TextBox;
 
-            // If the cell is null or empty, return
             if (cell == null || string.IsNullOrWhiteSpace(cell.Text))
             {
                 return;
             }
-
-            // Get the row and column of the edited cell
             int rowIndex = e.Row.GetIndex();
             int columnIndex = e.Column.DisplayIndex;
 
-            // Convert the new value to an integer
             if (!int.TryParse(cell.Text, out int newValue) || newValue < 1 || newValue > 10)
             {
-                // If the user entered an invalid value, display a message and reset the cell's value
                 MessageBox.Show("Napačen vnos! Vnesite število med 1 in 10");
                 return;
             }
 
-            // If the list for this column doesn't have enough items (rows), add them
             while (Data[columnIndex].Count <= rowIndex)
             {
                 Data[columnIndex].Add(0);
             }
 
-            // Update the corresponding item in the Data list with the new value
             Data[columnIndex][rowIndex] = newValue;
 
-            // Cancel the edit so that the new value is not discarded
             e.Cancel = true;
-
-            // Update the cell's value to the new value
             cell.Text = newValue.ToString();
         }
 
