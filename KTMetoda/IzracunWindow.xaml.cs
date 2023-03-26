@@ -36,7 +36,16 @@ namespace KTMetoda
         public ObservableCollection<Parameter> Parametri { get; set; }
         public List<List<int>> Data { get; set; } = new List<List<int>>();
 
+        public List<List<int>> Kopija { get; set; }
+
+        public List<List<int>> Koncne { get; set; } = new List<List<int>>();
+
         List<int> vsote = new List<int>();
+
+
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] Labels { get; set; }
+        public Func<double, string> YFormatter { get; set; }
 
 
         public IzracunWindow(ObservableCollection<string> Alternative, ObservableCollection<Parameter> Parametri)
@@ -70,6 +79,9 @@ namespace KTMetoda
             GridAlternative.CanUserAddRows = false;
 
             GridAlternative.CellEditEnding += GridAlternative_CellEditEnding;
+
+            SeriesCollection = new SeriesCollection { };
+
         }
         private void GridAlternative_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
@@ -124,9 +136,11 @@ namespace KTMetoda
 
         private void Izracunaj_Click(object sender, RoutedEventArgs e)
         {
+            Kopija = Data.Select(list => new List<int>(list)).ToList();
+
             int najvecjaVsota = int.MinValue;
             int najvecjiStolpecIndex = -1;
-
+            //Kopija = Data.ToList();
             for (int i = 0; i < Rezultati.Children.Count; i++)
             {
                 List<int> column = Data[i];
@@ -209,58 +223,61 @@ namespace KTMetoda
 
         private void AnalizaObcutljivosti_Click(object sender, RoutedEventArgs e)
         {
-            // torej potem mores naredit da uporabnik izbere za kateri parameter hoce spreminjat vrednost od 1 do 10
-            // in potem se moras enkrat izracunat vse vrednosti v tabeli in vskako shrani (pomoje najboljse da v nek list in potem naredis iz tega graf) 
-            //torej vsaka alternativa dobi svoj list ko bo mel not vse izracune ko se utez spremeni od 1 do 10
-            List<Sestevek> sestevki = new List<Sestevek>();
             Parameter izbran = ComboBoxParametrov.SelectedItem as Parameter;
-            int[] utezi = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            foreach (int utez in utezi)
+            int utez = izbran.Utez;
+
+            for (int i = 0; i < Rezultati.Children.Count; i++) // en column oz alternativa
             {
-                izbran.Utez = utez;
-                Izracunaj_Click(sender, e);
-                int index = 0;
-                foreach (TextBlock textBlock in Rezultati.Children)
+                List<int> column = Kopija[i];
+                List<int> alternativ = new List<int>();
+
+                for (int j = 1; j <= 10; j++)
                 {
-                    sestevki.Add(new Sestevek(Alternative[index], int.Parse(textBlock.Text)));
-                    index++;
-                }              
+                    List<int> stolpec = column.ToList();
+                    izbran.Utez = j;
+                    int index = 0;
+                    foreach (Parameter parameter in Parametri)
+                    {
+                        stolpec[index] *= parameter.Utez;
+                        index++;
+                    }
+                    int sum = stolpec.Sum();
+                    alternativ.Add(sum);
+                    stolpec = column.ToList();
+                }
+                Koncne.Add(alternativ);
             }
 
-            MessageBox.Show(sestevki.First().ToString());
+            izbran.Utez = utez;
+            
+            SeriesCollection.Clear();
+                       
+            for (int k = 0; k < Alternative.Count; k++)
+            {
+                LineSeries newSeries = new LineSeries
+                {
+                    Title = Alternative[k],
+                    Values = new ChartValues<int>(Koncne[k]),
+                };
 
-            //MessageBox.Show(izbran.Ime);
+                SeriesCollection.Add(newSeries);               
+            }
+            var chart = new CartesianChart
+            {
+                Series = SeriesCollection,
+            };
+            chart.AxisX.Add(new Axis { Title = "Oteži", Labels = new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" } });
 
-            //for (int i = 0; i < 11; i++)
-            //{
-            //    Sestevek sestevek = new Sestevek();
-            //    for (int j = 0; j < Alternative.Count; j++)
-            //    {
-            //        List<int> column = Data[j];
-
-            //        int index = 0;
-            //        izbran.Utez = i;
-            //        foreach (Parameter parameter in Parametri)
-            //        {
-            //            column[index] *= parameter.Utez;
-            //            index++;
-            //        }
-            //        int sum = column.Sum();
-            //        string alternativa = Alternative[j];
-            //        sestevek.Ime = alternativa;
-            //        sestevek.Vrednost = sum;
-
-            //    }
-            //    sestevki.Add(sestevek);
-            //}
-            //Izracunaj_Click(sender, e);
-            //List<int> vsote = new List<int>();
-            //foreach (int vsota in this.vsote)
-            //{
-            //    vsote.Add(vsota);
-            //}
+            var window = new Window
+            {
+                Content = chart,
+                Width = 800,
+                Height = 600
+            };
+            window.ShowDialog();
+            chart.Series.Clear();
+            Koncne.Clear();
         }
-
-
     }
 }
+
