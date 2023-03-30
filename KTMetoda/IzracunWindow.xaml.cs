@@ -153,6 +153,8 @@ namespace KTMetoda
             }
             //Najboljsa.Text = "Najboljša alternativa je " + Alternative[najvecjiStolpecIndex] + " z " + najvecjaVsota + " točkami";
             MessageBox.Show("Najboljša alternativa je " + Alternative[najvecjiStolpecIndex] + " z " + najvecjaVsota + " točkami");
+
+            Data = Kopija.ToList();
         }
 
         private void AlternativeChart_Click(object sender, RoutedEventArgs e)
