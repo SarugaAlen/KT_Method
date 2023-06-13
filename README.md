@@ -1,6 +1,6 @@
 # KT Method 
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 [![GitHub Issues](https://img.shields.io/github/issues/SarugaAlen/KT_Method.svg)](https://github.com/SarugaAlen/KT_Method/issues)
 
 # Description
