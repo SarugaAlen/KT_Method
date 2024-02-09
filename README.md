@@ -16,6 +16,6 @@ The KT Method Application is a C# WPF desktop application that implements the Ke
 
 # Installation
 Clone the repository:
-bash
-Copy code
+```bash
 git clone https://github.com/SarugaAlen/KT_Method.git
+```
